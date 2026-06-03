@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-If you are using ephemeral self-hosted GitHub runners, you have probably faced a challenge: how to monitor the resources?
+If you are using **ephemeral self-hosted GitHub runners**, you have probably faced a challenge: how to monitor the resources?
 
 Standard metrics are not viable as usually there are not enough data points.
 
@@ -59,18 +59,3 @@ The report includes:
 - **Peak CPU Utilization**: Maximum CPU utilization percentage
 - **Status Badge**: `🟢 OPTIMIZED`, `🟡 OVER-PROVISIONED`, or `🔴 UNDER-PROVISIONED`
 - **Optimization Hint**: Recommendation to upgrade, downgrade, or keep the current runner type
-
-Example output:
-```
-==================================================
-        🏃‍♂️ RUNNER RESOURCE CONSUMPTION REPORT
-==================================================
-
-### 🏃‍♂️ Resource Report: `Build & Test`
-| Metric | Resource Value | Status |
-| :--- | :--- | :--- |
-| **Peak CPU Utilization** | 45% | 🟢 **OPTIMIZED** |
-| **Peak Memory Used** | 512 MB / 8192 MB | N/A |
-
-> ✅ **Optimization Hint:** You are in a cost-efficient sweet spot!
-```
