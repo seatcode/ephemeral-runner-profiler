@@ -1,0 +1,38 @@
+name: Runner Resource Profiler
+description: Profiles CPU and Memory usage of the runner
+inputs:
+  action:
+    description: Either "start" to spin up the monitor or "stop" to print results
+    required: true
+    default: start
+  stage-name:
+    description: The name of the execution step or stage being monitored
+    required: false
+    default: Default
+  low-cpu-threshold:
+    description: CPU utilization threshold (%) below which runner is considered over-provisioned
+    required: false
+    default: '20'
+  high-cpu-threshold:
+    description: CPU utilization threshold (%) above which runner is considered under-provisioned
+    required: false
+    default: '90'
+
+runs:
+  using: composite
+  steps:
+    - name: 📈 Start Monitoring
+      if: ${{ inputs.action == 'start' }}
+      shell: bash
+      env:
+        LOW_CPU_THRESHOLD: ${{ inputs.low-cpu-threshold }}
+        HIGH_CPU_THRESHOLD: ${{ inputs.high-cpu-threshold }}
+      run: $GITHUB_ACTION_PATH/monitor.sh start &
+
+    - name: 📊 Stop Monitoring & Print Report
+      if: ${{ inputs.action == 'stop' }}
+      shell: bash
+      env:
+        LOW_CPU_THRESHOLD: ${{ inputs.low-cpu-threshold }}
+        HIGH_CPU_THRESHOLD: ${{ inputs.high-cpu-threshold }}
+      run: $GITHUB_ACTION_PATH/monitor.sh stop "${{ inputs.stage-name }}"
